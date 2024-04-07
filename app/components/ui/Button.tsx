@@ -14,7 +14,7 @@ const Button: React.FC<ButtonProps> = ({
   ...props
 }) => {
   const defaultClasses: string =
-    "bg-slate-950 py-3 px-5 font-semibold flex justify-center items-center transition-colors duration-300 rounded-full hover:bg-slate-200 hover:text-slate-950 focus:outline-none focus:ring-1 focus:ring-slate-500 focus:ring-offset-2";
+    " bg-slate-200 text-slate-950 py-3 px-5 font-semibold flex justify-center items-center transition-colors duration-300 rounded-full hover:bg-slate-950 hover:text-slate-200 focus:outline-none focus:ring-1 focus:ring-slate-500 focus:ring-offset-2";
   return (
     <button
       className={cn(defaultClasses, className)}

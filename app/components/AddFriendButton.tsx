@@ -13,7 +13,6 @@ const initialState = {
 
 const AddFriendButton = () => {
   const { pending } = useFormStatus();
-  console.log(pending);
 
   const [state, formAction] = useFormState(SendRequest, initialState);
 
