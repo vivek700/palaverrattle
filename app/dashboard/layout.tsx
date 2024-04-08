@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import SignOut from "../components/SignOut";
 import FriendRequestsSidebar from "../components/FriendRequestsSidebar";
+import { fetchRedis } from "../lib/redis";
 
 interface LayouProps {
   children: ReactNode;
@@ -33,6 +34,13 @@ const Layout: FC<LayouProps> = async ({ children }) => {
   if (!session) {
     redirect("/login");
   }
+
+  const reqCount = (
+    (await fetchRedis(
+      "smembers",
+      `user:${session?.user.id}:friend_requests`
+    )) as User[]
+  ).length;
 
   const sideBarElement = sideBarOpt.map((opt) => {
     const Icon = Icons[opt.Icon];
@@ -79,7 +87,10 @@ const Layout: FC<LayouProps> = async ({ children }) => {
             </li>
 
             <li className="-mx-2">
-              <FriendRequestsSidebar />
+              <FriendRequestsSidebar
+                initialRequestCount={reqCount}
+                sessionId={session?.user.id}
+              />
             </li>
 
             <li className="-mx-6 mt-auto flex items-center">

@@ -3,9 +3,17 @@
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
-import React from "react";
+import { useState } from "react";
 
-const FriendRequestsSidebar = () => {
+const FriendRequestsSidebar = ({
+  initialRequestCount,
+  sessionId,
+}: {
+  initialRequestCount: number;
+  sessionId: string;
+}) => {
+  const [requestCount, setRequestCount] = useState<number>(initialRequestCount);
+
   return (
     <>
       <Link
@@ -19,6 +27,11 @@ const FriendRequestsSidebar = () => {
           <FontAwesomeIcon icon={faUser} className="w-4 h-4" />
         </section>
         <p className="truncate">Friend Requests</p>
+        {requestCount > 0 && (
+          <p className="rounded-full w-5 h-5 text-xs flex justify-center items-center text-slate-200 bg-blue-700">
+            {requestCount}
+          </p>
+        )}
       </Link>
     </>
   );

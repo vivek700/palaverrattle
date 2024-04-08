@@ -21,7 +21,6 @@ export const SendRequest = async (prevState: any, formData: FormData) => {
   }
 
   const { email } = validMail.data;
-  console.log(email);
 
   const RESTResponse = await fetch(
     `${process.env.UPSTASH_REDIS_REST_URL}/get/user:email:${email}`,

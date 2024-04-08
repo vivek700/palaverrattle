@@ -1,10 +1,8 @@
 "use client";
 import React from "react";
 import Button from "./ui/Button";
-import { validator } from "../lib/validations/addFriend";
 import { useFormState, useFormStatus } from "react-dom";
 import { SendRequest } from "../lib/action";
-import { error } from "console";
 
 const initialState = {
   message: "",
