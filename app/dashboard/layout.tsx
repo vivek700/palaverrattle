@@ -8,6 +8,8 @@ import Image from "next/image";
 import SignOut from "../components/SignOut";
 import FriendRequestsSidebar from "../components/FriendRequestsSidebar";
 import { fetchRedis } from "../lib/redis";
+import { getFriendsByUserId } from "../lib/get-friends";
+import SidebarChat from "../components/SidebarChat";
 
 interface LayouProps {
   children: ReactNode;
@@ -34,6 +36,8 @@ const Layout: FC<LayouProps> = async ({ children }) => {
   if (!session) {
     redirect("/login");
   }
+
+  const friends = await getFriendsByUserId(session.user.id);
 
   const reqCount = (
     (await fetchRedis(
@@ -69,28 +73,33 @@ const Layout: FC<LayouProps> = async ({ children }) => {
           href={"/dashboard"}
           className="flex h-16 shrink-0 items-center text-3xl font-semibold"
         >
-          <FontAwesomeIcon icon={Icons.faEnvelope} className="w-8 h-8 mr-2" />
-          <span>Palaverrattle</span>
+          <abbr title="Dashboard" className="flex items-center no-underline">
+            <FontAwesomeIcon icon={Icons.faEnvelope} className="w-8 h-8 mr-2" />
+            <span>Palaverrattle</span>
+          </abbr>
         </Link>
-        <p className="text-xs font-semibold text-slate-300">Your Chats</p>
+        {friends.length > 0 && (
+          <p className="text-xs font-semibold text-slate-300">Your Chats</p>
+        )}
 
         <nav className="flex flex-col flex-1">
           <ul role="list" className="flex flex-col flex-1 gap-y-7">
-            <li>//chats goes here...</li>
+            <li>
+              <SidebarChat sessionId={session.user.id} friends={friends} />
+            </li>
             <li>
               <section className="text-xs font-semibold text-slate-300">
                 Overview
               </section>
               <ul role="list" className="-mx-2 mt-2 space-y-1">
                 {sideBarElement}
+                <li>
+                  <FriendRequestsSidebar
+                    initialRequestCount={reqCount}
+                    sessionId={session?.user.id}
+                  />
+                </li>
               </ul>
-            </li>
-
-            <li className="-mx-2">
-              <FriendRequestsSidebar
-                initialRequestCount={reqCount}
-                sessionId={session?.user.id}
-              />
             </li>
 
             <li className="-mx-6 mt-auto flex items-center">
