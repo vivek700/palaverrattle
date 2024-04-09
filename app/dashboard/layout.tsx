@@ -66,7 +66,7 @@ const Layout: FC<LayouProps> = async ({ children }) => {
   return (
     <section className="w-full flex h-dvh">
       <section
-        className=" flex grow flex-col gap-y-5 w-full h-dvh max-w-sm overflow-y-auto border-r border-gray-500
+        className=" flex grow flex-col gap-y-5 w-full h-full max-w-sm overflow-y-auto border-r border-gray-500
        bg-slate-800/50 p-6"
       >
         <Link
@@ -102,9 +102,9 @@ const Layout: FC<LayouProps> = async ({ children }) => {
               </ul>
             </li>
 
-            <li className="-mx-6 mt-auto flex items-center">
+            <li className="-ml-6 mt-auto flex items-center">
               <section className="flex flex-1 items-center gap-x-4 px-6 py-3 text-sm font-semibold text-slate-200">
-                <section className="relative h-8 w-8 bg-slate-800 rounded-full">
+                <section className="relative h-10 w-10 bg-slate-800 rounded-full">
                   <Image
                     fill
                     referrerPolicy="no-referrer"
@@ -126,7 +126,6 @@ const Layout: FC<LayouProps> = async ({ children }) => {
           </ul>
         </nav>
       </section>
-
       {children}
     </section>
   );

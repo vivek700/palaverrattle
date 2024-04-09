@@ -1,3 +1,4 @@
+import ChatInput from "@/app/components/ChatInput";
 import Messages from "@/app/components/Messages";
 import { auth } from "@/app/lib/auth";
 import { db } from "@/app/lib/db";
@@ -27,6 +28,7 @@ const getChat = async (chatID: string) => {
     const reversedDbMessages = dbMessages.reverse();
 
     const messages = mArrayValidator.parse(reversedDbMessages);
+    return messages;
   } catch (error) {
     notFound();
   }
@@ -49,10 +51,10 @@ const page = async ({ params }: props) => {
 
   const chatPerson = (await db.get(`user:${chatPersonId}`)) as User;
 
-  const messages = await getChat(chatID);
+  const initialMessages = await getChat(chatID);
 
   return (
-    <section className="flex-1 justify-between flex flex-col h-dvh max-h-[calc(100vh - 6rem)]">
+    <section className="flex-1 justify-between flex flex-col h-full max-h-[calc(100vh - 6rem)]">
       <section className="flex sm:items-center justify-between py-3 border-b-2 border-gray-400">
         <section className="relative flex items-center space-x-4">
           <section className="relative">
@@ -79,7 +81,8 @@ const page = async ({ params }: props) => {
           </div>
         </section>
       </section>
-      <Messages />
+      <Messages sessionId={session.user.id} initialMsg={initialMessages} />
+      <ChatInput chatPerson={chatPerson} chatId={chatID} />
     </section>
   );
 };

@@ -23,6 +23,7 @@
     "next-auth": "^5.0.0-beta.16",
     "react": "^18",
     "react-dom": "^18",
+    "react-textarea-autosize": "^8.5.3",
     "tailwind-merge": "^2.2.2",
     "zod": "^3.22.4"
   },
