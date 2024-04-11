@@ -18,7 +18,7 @@ const ChatInput = ({
   const sendMessage = async () => {
     setLoading(true);
     try {
-      await fetch("http://localhost:3000/api/message/send", {
+      await fetch("http://localhost:3000/api/friends/message/send", {
         method: "POST",
         body: JSON.stringify({ text: input, chatId }),
       });

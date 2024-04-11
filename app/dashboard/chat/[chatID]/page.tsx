@@ -65,6 +65,7 @@ const page = async ({ params }: props) => {
                 src={chatPerson.image}
                 alt={`${chatPerson.name} profile picture`}
                 className="rounded-full"
+                unoptimized
               />
             </section>
           </section>
@@ -81,7 +82,12 @@ const page = async ({ params }: props) => {
           </div>
         </section>
       </section>
-      <Messages sessionId={session.user.id} initialMsg={initialMessages} />
+      <Messages
+        sessionId={session.user.id}
+        initialMsg={initialMessages}
+        sessionImg={session.user.image}
+        chatPerson={chatPerson}
+      />
       <ChatInput chatPerson={chatPerson} chatId={chatID} />
     </section>
   );

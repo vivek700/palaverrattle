@@ -3,13 +3,19 @@
 import { useRef, useState } from "react";
 import { Message } from "../lib/validations/message";
 import { cn } from "../lib/utils/cn";
+import { format } from "date-fns";
+import Image from "next/image";
 
 const Messages = ({
   initialMsg,
   sessionId,
+  sessionImg,
+  chatPerson,
 }: {
   initialMsg: Message[];
   sessionId: string;
+  sessionImg: string | null | undefined;
+  chatPerson: User;
 }) => {
   const scrollRef = useRef<HTMLDivElement | null>(null);
 
@@ -21,6 +27,9 @@ const Messages = ({
     const nextMsgFromSameUser =
       msgs[index - 1]?.senderId === msgs[index].senderId;
 
+    const formatTime = (dt: number) => {
+      return format(dt, "KK:mm bbb");
+    };
     return (
       <section key={`${msg.id}-${msg.timestamp}`} className="chat-message">
         <section
@@ -44,9 +53,25 @@ const Messages = ({
             >
               {msg.text}{" "}
               <span className="ml-2 text-xs text-slate-400">
-                {msg.timestamp}
+                {formatTime(msg.timestamp)}
               </span>
             </span>
+          </div>
+          <div
+            className={cn("relative w-6 h-6", {
+              "order-2": isCurrentUser,
+              "order-1": !isCurrentUser,
+              invisible: nextMsgFromSameUser,
+            })}
+          >
+            <Image
+              fill
+              src={isCurrentUser ? (sessionImg as string) : chatPerson.image}
+              alt="Profile Picture"
+              unoptimized
+              referrerPolicy="no-referrer"
+              className="rounded-full"
+            />
           </div>
         </section>
       </section>

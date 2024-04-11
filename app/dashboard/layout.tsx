@@ -111,6 +111,7 @@ const Layout: FC<LayouProps> = async ({ children }) => {
                     className="rounded-full"
                     src={session.user.image || ""}
                     alt="Your profile picture"
+                    unoptimized
                   />
                 </section>
                 <span className="sr-only">Your Profile</span>
