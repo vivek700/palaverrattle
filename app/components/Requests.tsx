@@ -31,11 +31,11 @@ const Requests = ({
     pusherClient.bind("friend_requests", friendRequestHandler);
     return () => {
       pusherClient.unsubscribe(
-        toPusherKey(`user:${sessionId}:friend_requests`)
+        toPusherKey(`user:${sessionId}:friend_requests`),
       );
       pusherClient.unbind("friend_requests", friendRequestHandler);
     };
-  }, []);
+  }, [sessionId]);
 
   const accept = async (senderId: string) => {
     await fetch("http://localhost:3000/api/friends/accept", {
@@ -59,25 +59,25 @@ const Requests = ({
   };
 
   const reqElement = requests?.map((req) => (
-    <section key={req.senderId} className="flex gap-4 items-center ">
-      <FontAwesomeIcon icon={Icons.faUserPlus} className="w-8 h-8" />
-      <p className="font-medium text-lg">{req?.senderMail}</p>
+    <section key={req.senderId} className="flex items-center gap-4 ">
+      <FontAwesomeIcon icon={Icons.faUserPlus} className="h-8 w-8" />
+      <p className="text-lg font-medium">{req?.senderMail}</p>
       <button
         onClick={() => accept(req.senderId)}
         aria-label="accept friend"
-        className="w-8 h-8 bg-blue-600 hover:bg-blue-700 grid place-items-center rounded-full transition hover:shadow-md"
+        className="grid h-8 w-8 place-items-center rounded-full bg-blue-600 transition hover:bg-blue-700 hover:shadow-md"
       >
         <abbr title="Accept">
-          <FontAwesomeIcon icon={Icons.faCheck} className="w-4 h-4" />
+          <FontAwesomeIcon icon={Icons.faCheck} className="h-4 w-4" />
         </abbr>
       </button>
       <button
         onClick={() => reject(req.senderId)}
         aria-label="reject friend"
-        className="w-8 h-8 bg-red-600 hover:bg-red-700 grid place-items-center rounded-full transition hover:shadow-md"
+        className="grid h-8 w-8 place-items-center rounded-full bg-red-600 transition hover:bg-red-700 hover:shadow-md"
       >
         <abbr title="Reject">
-          <FontAwesomeIcon icon={Icons.faXmark} className="w-4 h-4" />
+          <FontAwesomeIcon icon={Icons.faXmark} className="h-4 w-4" />
         </abbr>
       </button>
     </section>

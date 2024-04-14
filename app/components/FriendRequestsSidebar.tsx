@@ -27,27 +27,27 @@ const FriendRequestsSidebar = ({
 
     return () => {
       pusherClient.unsubscribe(
-        toPusherKey(`user:${sessionId}:friend_requests`)
+        toPusherKey(`user:${sessionId}:friend_requests`),
       );
       pusherClient.unbind("friend_requests", friendRequestHandler);
     };
-  }, []);
+  }, [sessionId]);
 
   return (
     <>
       <Link
         href={"/dashboard/requests"}
-        className="text-slate-200 hover:text-blue-400 hover:bg-slate-800 group flex items-center gap-x-3 rounded-md p-2 text-sm font-medium"
+        className="group flex items-center gap-x-3 rounded-md p-2 text-sm font-medium text-slate-200 hover:bg-slate-800 hover:text-blue-400"
       >
         <section
-          className="text-slate-900  group-hover:border-blue-400 group-hover:text-blue-400
-          flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border text-[0.625rem] font-medium bg-slate-200"
+          className="flex  h-6 w-6
+          shrink-0 items-center justify-center rounded-lg border bg-slate-200 text-[0.625rem] font-medium text-slate-900 group-hover:border-blue-400 group-hover:text-blue-400"
         >
-          <FontAwesomeIcon icon={faUser} className="w-4 h-4" />
+          <FontAwesomeIcon icon={faUser} className="h-4 w-4" />
         </section>
         <p className="truncate">Friend Requests</p>
         {requestCount > 0 && (
-          <p className="rounded-full w-5 h-5 text-xs flex justify-center items-center text-slate-200 bg-blue-700">
+          <p className="flex h-5 w-5 items-center justify-center rounded-full bg-blue-700 text-xs text-slate-200">
             {requestCount}
           </p>
         )}

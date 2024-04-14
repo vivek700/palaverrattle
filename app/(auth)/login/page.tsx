@@ -20,10 +20,10 @@ const Login = () => {
   };
 
   return (
-    <section className=" flex justify-center items-center h-dvh">
-      <section className=" flex flex-col justify-center items-center  max-w-5xl w-9/12 rounded backdrop-blur-sm bg-gray-700 text-slate-200 py-10">
-        <p className="text-3xl pb-20">Palaverrattle</p>
-        <h1 className="text-2xl pb-6">Sign in to your account </h1>
+    <section className=" flex h-dvh items-center justify-center">
+      <section className=" flex w-9/12 max-w-5xl flex-col  items-center justify-center rounded bg-gray-700 py-10 text-slate-200 backdrop-blur-sm">
+        <p className="pb-20 text-3xl">Palaverrattle</p>
+        <h1 className="pb-6 text-2xl">Sign in to your account </h1>
         <Button
           className="w-6/12"
           type="button"

@@ -1,6 +1,8 @@
 import { auth } from "@/app/lib/auth";
 import { db } from "@/app/lib/db";
+import { pusherServer } from "@/app/lib/pusher";
 import { fetchRedis } from "@/app/lib/redis";
+import { toPusherKey } from "@/app/lib/utils/toPusherKey";
 import { z } from "zod";
 
 export async function POST(req: Request) {
@@ -18,7 +20,7 @@ export async function POST(req: Request) {
     const isAlreadyFriends = await fetchRedis(
       "sismember",
       `user:${session.user.id}:friends`,
-      idToAdd
+      idToAdd,
     );
 
     if (isAlreadyFriends) {
@@ -27,11 +29,17 @@ export async function POST(req: Request) {
     const hasFriendReq = await fetchRedis(
       "sismember",
       `user:${session.user.id}:friend_requests`,
-      idToAdd
+      idToAdd,
     );
     if (!hasFriendReq) {
       return new Response("No friend request", { status: 400 });
     }
+
+    pusherServer.trigger(
+      toPusherKey(`user:${idToAdd}:friends`),
+      "new_friend",
+      "",
+    );
 
     await db.sadd(`user:${session.user.id}:friends`, idToAdd);
     await db.sadd(`user:${idToAdd}:friends`, session.user.id);

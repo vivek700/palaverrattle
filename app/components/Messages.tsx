@@ -38,7 +38,7 @@ const Messages = ({
       pusherClient.unsubscribe(toPusherKey(`chat:${chatId}`));
       pusherClient.unbind("incoming-message", messageHandler);
     };
-  }, []);
+  }, [chatId]);
 
   const messageElement = msgs.map((msg, index) => {
     const isCurrentUser = msg.senderId === sessionId;

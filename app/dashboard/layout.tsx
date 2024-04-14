@@ -117,7 +117,7 @@ const Layout: FC<LayouProps> = async ({ children }) => {
                 <span className="sr-only">Your Profile</span>
                 <div className="flex flex-col">
                   <span aria-hidden="true">{session?.user.name}</span>
-                  <span className="text-xs text-zinc-400" aria-hidden="true">
+                  <span className="text-xs text-slate-600" aria-hidden="true">
                     {session?.user.email}
                   </span>
                 </div>

@@ -8,6 +8,7 @@ export const {
   handlers: { GET, POST },
   auth,
 } = NextAuth({
+  trustHost: true,
   adapter: UpstashRedisAdapter(db),
   session: {
     strategy: "jwt",
