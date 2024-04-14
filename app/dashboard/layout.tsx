@@ -1,6 +1,6 @@
 import { FC, ReactNode } from "react";
 import { auth } from "../lib/auth";
-import { notFound, redirect } from "next/navigation";
+import { redirect } from "next/navigation";
 import Link from "next/link";
 import { Icon, Icons } from "../components/Icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -42,7 +42,7 @@ const Layout: FC<LayouProps> = async ({ children }) => {
   const reqCount = (
     (await fetchRedis(
       "smembers",
-      `user:${session?.user.id}:friend_requests`
+      `user:${session?.user.id}:friend_requests`,
     )) as User[]
   ).length;
 
@@ -52,10 +52,10 @@ const Layout: FC<LayouProps> = async ({ children }) => {
       <li key={opt.id}>
         <Link
           href={opt.href}
-          className="text-slate-200 hover:text-blue-500 hover:bg-slate-800 group items-center flex gap-3 rounded-md p-2 text-sm"
+          className="group flex items-center gap-3 rounded-md p-2 text-sm text-slate-200 hover:bg-slate-800 hover:text-blue-500"
         >
-          <span className="text-slate-800 border-slate-800 group-hover:border-blue-600 group-hover:text-blue-600  flex h-6 w-6 items-center justify-center rounded-lg border text-[0.625rem] font-medium bg-slate-200">
-            <FontAwesomeIcon icon={Icon} className="w-4 h-4" />
+          <span className="flex h-6 w-6 items-center  justify-center rounded-lg border border-slate-800 bg-slate-200 text-[0.625rem] font-medium text-slate-800 group-hover:border-blue-600 group-hover:text-blue-600">
+            <FontAwesomeIcon icon={Icon} className="h-4 w-4" />
           </span>
           <span className="truncate">{opt.name}</span>
         </Link>
@@ -64,9 +64,9 @@ const Layout: FC<LayouProps> = async ({ children }) => {
   });
 
   return (
-    <section className="w-full flex h-dvh">
+    <section className=" flex h-dvh w-full">
       <section
-        className=" flex grow flex-col gap-y-5 w-full h-full max-w-sm overflow-y-auto border-r border-gray-500
+        className=" flex h-full w-full max-w-sm grow flex-col gap-y-5 overflow-y-auto border-r border-gray-500
        bg-slate-800/50 p-6"
       >
         <Link
@@ -74,7 +74,7 @@ const Layout: FC<LayouProps> = async ({ children }) => {
           className="flex h-16 shrink-0 items-center text-3xl font-semibold"
         >
           <abbr title="Dashboard" className="flex items-center no-underline">
-            <FontAwesomeIcon icon={Icons.faEnvelope} className="w-8 h-8 mr-2" />
+            <FontAwesomeIcon icon={Icons.faEnvelope} className="mr-2 h-8 w-8" />
             <span>Palaverrattle</span>
           </abbr>
         </Link>
@@ -82,8 +82,8 @@ const Layout: FC<LayouProps> = async ({ children }) => {
           <p className="text-xs font-semibold text-slate-300">Your Chats</p>
         )}
 
-        <nav className="flex flex-col flex-1">
-          <ul role="list" className="flex flex-col flex-1 gap-y-7">
+        <nav className="flex flex-1 flex-col">
+          <ul role="list" className="flex flex-1 flex-col gap-y-7">
             <li>
               <SidebarChat sessionId={session.user.id} friends={friends} />
             </li>
@@ -104,7 +104,7 @@ const Layout: FC<LayouProps> = async ({ children }) => {
 
             <li className="-ml-6 mt-auto flex items-center">
               <section className="flex flex-1 items-center gap-x-4 px-6 py-3 text-sm font-semibold text-slate-200">
-                <section className="relative h-10 w-10 bg-slate-800 rounded-full">
+                <section className="relative h-10 w-10 rounded-full bg-slate-800">
                   <Image
                     fill
                     referrerPolicy="no-referrer"
@@ -122,12 +122,12 @@ const Layout: FC<LayouProps> = async ({ children }) => {
                   </span>
                 </div>
               </section>
-              <SignOut className="h-full aspect-square" />
+              <SignOut className="aspect-square h-full" />
             </li>
           </ul>
         </nav>
       </section>
-      {children}
+      <aside className="container max-h-screen w-full py-4">{children}</aside>
     </section>
   );
 };

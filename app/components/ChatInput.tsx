@@ -16,6 +16,7 @@ const ChatInput = ({
   const [loading, setLoading] = useState<boolean>(false);
 
   const sendMessage = async () => {
+    if (!input) return;
     setLoading(true);
     try {
       await fetch("http://localhost:3000/api/friends/message/send", {
@@ -32,8 +33,8 @@ const ChatInput = ({
   };
 
   return (
-    <div className="border-t border-slate-400 px-4 py-6 mb-2 sm:mb-0">
-      <div className="relative flex-1 overflow-hidden rounded-lg shadow-sm ring-1 ring-slate-700 focus-within:ring2 focus-within:ring-blue-600">
+    <div className="mb-2 border-t border-slate-600 px-4 py-6 sm:mb-0">
+      <div className="relative flex-1 overflow-hidden rounded-lg shadow-sm ring-1 ring-slate-700 focus-within:ring-2 focus-within:ring-violet-600">
         <TextareaAutosize
           ref={textareaRef}
           onKeyDown={(e) => {
@@ -48,7 +49,7 @@ const ChatInput = ({
             setInput(e.target.value);
           }}
           placeholder={`Message ${chatPerson.name}`}
-          className="'block w-full resize-none border-0 bg-transparent text-slate-200 sm:py-1.5 placeholder:text-slate-600 focus:ring-0 sm:text-sm sm:leading-6'"
+          className="'block sm:leading-6' w-full resize-none border-0 bg-transparent text-slate-200 placeholder:text-slate-600 focus:ring-0 sm:py-1.5 sm:text-sm"
         />
         <div
           onClick={() => textareaRef.current?.focus()}
@@ -59,7 +60,7 @@ const ChatInput = ({
             <div className="h-9" />
           </div>
         </div>
-        <section className="absolute right-0 bottom-0 flex justify-between py-2 pl-3 pr-2">
+        <section className="absolute bottom-0 right-0 flex justify-between py-2 pl-3 pr-2">
           <div className="flex-shrink-0">
             <Button onClick={sendMessage} loading={loading} type="submit">
               Post

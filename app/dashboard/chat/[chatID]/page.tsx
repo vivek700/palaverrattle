@@ -20,7 +20,7 @@ const getChat = async (chatID: string) => {
       "zrange",
       `chat:${chatID}:messages`,
       0,
-      -1
+      -1,
     );
 
     const dbMessages = result.map((message) => JSON.parse(message) as Message);
@@ -54,31 +54,31 @@ const page = async ({ params }: props) => {
   const initialMessages = await getChat(chatID);
 
   return (
-    <section className="flex-1 justify-between flex flex-col h-full max-h-[calc(100vh - 6rem)]">
-      <section className="flex sm:items-center justify-between py-3 border-b-2 border-gray-400">
+    <section className="max-h-[calc(100vh - 6rem)] flex h-full flex-1 flex-col justify-between">
+      <section className="flex justify-between border-b-2 border-slate-600 py-3 sm:items-center">
         <section className="relative flex items-center space-x-4">
           <section className="relative">
-            <section className="relative w-8 sm:w-12 h-8 sm:h-12">
+            <section className="relative h-8 w-8 sm:h-12 sm:w-12">
               <Image
                 fill
                 referrerPolicy="no-referrer"
-                src={chatPerson.image}
-                alt={`${chatPerson.name} profile picture`}
+                src={chatPerson?.image}
+                alt={`${chatPerson?.name} profile picture`}
                 className="rounded-full"
                 unoptimized
               />
             </section>
           </section>
           <div className="flex flex-col leading-tight">
-            <div className="text-lg flex items-center">
+            <div className="flex items-center text-lg">
               <span
-                className="text-slate-200 mr-3 font-semibold
+                className="mr-3 font-semibold text-slate-200
               "
               >
-                {chatPerson.name}
+                {chatPerson?.name}
               </span>
             </div>
-            <span className="text-xs text-slate-500">{chatPerson.email}</span>
+            <span className="text-xs text-slate-500">{chatPerson?.email}</span>
           </div>
         </section>
       </section>
@@ -87,6 +87,7 @@ const page = async ({ params }: props) => {
         initialMsg={initialMessages}
         sessionImg={session.user.image}
         chatPerson={chatPerson}
+        chatId={chatID}
       />
       <ChatInput chatPerson={chatPerson} chatId={chatID} />
     </section>

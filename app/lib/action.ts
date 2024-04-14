@@ -5,6 +5,8 @@ import { auth } from "./auth";
 import { db } from "./db";
 import { fetchRedis } from "./redis";
 import { validator } from "./validations/addFriend";
+import { pusherServer } from "./pusher";
+import { toPusherKey } from "./utils/toPusherKey";
 
 export const SendRequest = async (prevState: any, formData: FormData) => {
   //   console.log(formData);
@@ -78,6 +80,15 @@ export const SendRequest = async (prevState: any, formData: FormData) => {
       message: "Already friends.",
     };
   }
+
+  pusherServer.trigger(
+    toPusherKey(`user:${idToAdd}:friend_requests`),
+    "friend_requests",
+    {
+      senderId: session.user.id,
+      senderMail: session.user.email,
+    }
+  );
 
   try {
     db.sadd(`user:${idToAdd}:friend_requests`, session?.user.id);

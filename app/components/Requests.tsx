@@ -1,23 +1,43 @@
 "use client";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Icons } from "./Icons";
 import { useRouter } from "next/navigation";
+import { pusherClient } from "../lib/pusher";
+import { toPusherKey } from "../lib/utils/toPusherKey";
 
 const Requests = ({
   initialRequests,
   sessionId,
 }: {
-  initialRequests: FriendRequest[];
+  initialRequests: incomingFriendRequest[];
   sessionId: string;
 }) => {
-  const [requests, setRequests] = useState<FriendRequest[]>(initialRequests);
+  const [requests, setRequests] =
+    useState<incomingFriendRequest[]>(initialRequests);
 
   const router = useRouter();
 
+  useEffect(() => {
+    pusherClient.subscribe(toPusherKey(`user:${sessionId}:friend_requests`));
+    const friendRequestHandler = ({
+      senderId,
+      senderMail,
+    }: incomingFriendRequest) => {
+      setRequests((prev) => [...prev, { senderId, senderMail }]);
+    };
+
+    pusherClient.bind("friend_requests", friendRequestHandler);
+    return () => {
+      pusherClient.unsubscribe(
+        toPusherKey(`user:${sessionId}:friend_requests`)
+      );
+      pusherClient.unbind("friend_requests", friendRequestHandler);
+    };
+  }, []);
+
   const accept = async (senderId: string) => {
-    console.log(senderId);
     await fetch("http://localhost:3000/api/friends/accept", {
       method: "POST",
       body: JSON.stringify({ id: senderId }),

@@ -3,7 +3,9 @@
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { pusherClient } from "../lib/pusher";
+import { toPusherKey } from "../lib/utils/toPusherKey";
 
 const FriendRequestsSidebar = ({
   initialRequestCount,
@@ -13,6 +15,23 @@ const FriendRequestsSidebar = ({
   sessionId: string;
 }) => {
   const [requestCount, setRequestCount] = useState<number>(initialRequestCount);
+
+  useEffect(() => {
+    pusherClient.subscribe(toPusherKey(`user:${sessionId}:friend_requests`));
+
+    const friendRequestHandler = () => {
+      setRequestCount((prev) => prev + 1);
+    };
+
+    pusherClient.bind("friend_requests", friendRequestHandler);
+
+    return () => {
+      pusherClient.unsubscribe(
+        toPusherKey(`user:${sessionId}:friend_requests`)
+      );
+      pusherClient.unbind("friend_requests", friendRequestHandler);
+    };
+  }, []);
 
   return (
     <>

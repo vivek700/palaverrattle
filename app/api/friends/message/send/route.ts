@@ -1,6 +1,8 @@
 import { auth } from "@/app/lib/auth";
 import { db } from "@/app/lib/db";
+import { pusherServer } from "@/app/lib/pusher";
 import { fetchRedis } from "@/app/lib/redis";
+import { toPusherKey } from "@/app/lib/utils/toPusherKey";
 import { Message, messageValidator } from "@/app/lib/validations/message";
 import { nanoid } from "nanoid";
 
@@ -23,7 +25,7 @@ export async function POST(req: Request) {
 
     const frinedList = (await fetchRedis(
       "smembers",
-      `user:${session.user.id}:friends`
+      `user:${session.user.id}:friends`,
     )) as string[];
 
     const isFriend = frinedList.includes(friendId);
@@ -33,7 +35,7 @@ export async function POST(req: Request) {
     }
     const rawSender = (await fetchRedis(
       "get",
-      `user:${session.user.id}`
+      `user:${session.user.id}`,
     )) as string;
 
     const sender = JSON.parse(rawSender) as User;
@@ -48,6 +50,17 @@ export async function POST(req: Request) {
     };
 
     const message = messageValidator.parse(messageData);
+
+    pusherServer.trigger(
+      toPusherKey(`chat:${chatId}`),
+      "incoming-message",
+      message,
+    );
+    pusherServer.trigger(toPusherKey(`user:${friendId}:chats`), "new_message", {
+      ...message,
+      senderImg: sender.image,
+      senderName: sender.name,
+    });
 
     await db.zadd(`chat:${chatId}:messages`, {
       score: timestamp,
