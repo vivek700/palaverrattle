@@ -2,7 +2,6 @@
 import { useRef, useState } from "react";
 import TextareaAutosize from "react-textarea-autosize";
 import Button from "./ui/Button";
-import { usePathname, useRouter } from "next/navigation";
 
 const ChatInput = ({
   chatPerson,
@@ -41,6 +40,8 @@ const ChatInput = ({
       <div className="relative flex-1 overflow-hidden rounded-lg shadow-sm ring-1 ring-slate-700 focus-within:ring-2 focus-within:ring-violet-600">
         <TextareaAutosize
           ref={textareaRef}
+          name="message"
+          id="message"
           onKeyDown={(e) => {
             if (e.key === "Enter" && !e.shiftKey) {
               e.preventDefault();
@@ -54,6 +55,7 @@ const ChatInput = ({
           }}
           placeholder={`Message ${chatPerson.name}`}
           className="'block sm:leading-6' w-full resize-none border-0 bg-transparent text-slate-200 placeholder:text-slate-600 focus:ring-0 sm:py-1.5 sm:text-sm"
+          autoComplete="off"
         />
         <div
           onClick={() => textareaRef.current?.focus()}
@@ -66,7 +68,12 @@ const ChatInput = ({
         </div>
         <section className="absolute bottom-0 right-0 flex justify-between py-2 pl-3 pr-2">
           <div className="flex-shrink-0">
-            <Button onClick={sendMessage} loading={loading} type="submit">
+            <Button
+              name="button"
+              onClick={sendMessage}
+              loading={loading}
+              type="submit"
+            >
               Post
             </Button>
           </div>
