@@ -26,7 +26,6 @@ const ChatInput = ({
       await fetch(url, {
         method: "POST",
         body: JSON.stringify({ text: input, chatId }),
-        cache: "no-store",
       });
       setInput("");
       textareaRef?.current?.focus();
