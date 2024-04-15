@@ -14,6 +14,10 @@ const Requests = ({
   initialRequests: incomingFriendRequest[];
   sessionId: string;
 }) => {
+  const base = process.env.NEXT_PUBLIC_URL || "http://localhost:3000";
+  const acceptUrl = `${base}/api/friends/accept`;
+  const rejectUrl = `${base}/api/friends/reject`;
+
   const [requests, setRequests] =
     useState<incomingFriendRequest[]>(initialRequests);
 
@@ -38,7 +42,7 @@ const Requests = ({
   }, [sessionId]);
 
   const accept = async (senderId: string) => {
-    await fetch("http://localhost:3000/api/friends/accept", {
+    await fetch(acceptUrl, {
       method: "POST",
       body: JSON.stringify({ id: senderId }),
     });
@@ -48,7 +52,7 @@ const Requests = ({
     router.refresh();
   };
   const reject = async (senderId: string) => {
-    await fetch("http://localhost:3000/api/friends/reject", {
+    await fetch(rejectUrl, {
       method: "POST",
       body: JSON.stringify({ id: senderId }),
     });

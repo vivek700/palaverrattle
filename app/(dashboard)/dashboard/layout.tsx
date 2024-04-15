@@ -1,15 +1,15 @@
 import { FC, ReactNode } from "react";
-import { auth } from "../lib/auth";
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import { Icon, Icons } from "../components/Icons";
+import { Icon, Icons } from "@/app/components/Icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
-import SignOut from "../components/SignOut";
-import FriendRequestsSidebar from "../components/FriendRequestsSidebar";
-import { fetchRedis } from "../lib/redis";
-import { getFriendsByUserId } from "../lib/get-friends";
-import SidebarChat from "../components/SidebarChat";
+import { getFriendsByUserId } from "@/app/lib/get-friends";
+import { fetchRedis } from "@/app/lib/redis";
+import SidebarChat from "@/app/components/SidebarChat";
+import FriendRequestsSidebar from "@/app/components/FriendRequestsSidebar";
+import SignOut from "@/app/components/SignOut";
+import { auth } from "@/app/lib/auth";
 
 interface LayouProps {
   children: ReactNode;

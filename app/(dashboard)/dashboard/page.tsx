@@ -1,4 +1,4 @@
-import { auth } from "../lib/auth";
+import { auth } from "@/app/lib/auth";
 import { notFound } from "next/navigation";
 
 const Dashboard = async () => {

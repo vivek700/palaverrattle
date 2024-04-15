@@ -2,6 +2,7 @@
 import { useRef, useState } from "react";
 import TextareaAutosize from "react-textarea-autosize";
 import Button from "./ui/Button";
+import { usePathname, useRouter } from "next/navigation";
 
 const ChatInput = ({
   chatPerson,
@@ -10,6 +11,9 @@ const ChatInput = ({
   chatPerson: User;
   chatId: string;
 }) => {
+  const base = process.env.NEXT_PUBLIC_URL || "http://localhost:3000";
+  const url = `${base}/api/friends/message/send`;
+
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
   const [input, setInput] = useState<string>("");
 
@@ -19,9 +23,10 @@ const ChatInput = ({
     if (!input) return;
     setLoading(true);
     try {
-      await fetch("http://localhost:3000/api/friends/message/send", {
+      await fetch(url, {
         method: "POST",
         body: JSON.stringify({ text: input, chatId }),
+        cache: "no-store",
       });
       setInput("");
       textareaRef?.current?.focus();
