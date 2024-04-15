@@ -97,12 +97,14 @@ const Messages = ({
     );
   });
 
+  scrollRef.current?.scrollIntoView({ behavior: "smooth" });
+
   return (
     <section
       id="message"
-      className="scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch flex h-full flex-col-reverse gap-4 overflow-y-auto p-3"
+      className="scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch flex h-full flex-col-reverse gap-3 overflow-y-auto px-3"
     >
-      <div ref={scrollRef} />
+      <div className="mb-2" ref={scrollRef} />
       {messageElement}
     </section>
   );
