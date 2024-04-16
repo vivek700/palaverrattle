@@ -13,11 +13,12 @@ const Button: React.FC<ButtonProps> = ({
   loading,
   ...props
 }) => {
-  const defaultClasses: string =
-    "bg-slate-300 text-slate-900 py-3 px-5 font-semibold flex justify-center items-center transition-colors duration-300 rounded-full hover:bg-slate-950 focus:outline-none hover:text-slate-200 focus:outline-none focus:ring focus:ring-blue-700 focus:ring-offset-4 focus:ring-offset-slate-900";
   return (
     <button
-      className={cn(defaultClasses, className)}
+      className={cn(
+        "flex items-center justify-center rounded-full bg-slate-300 px-5 py-3 font-semibold text-slate-900 transition-colors duration-300 hover:bg-slate-400  focus:outline-none focus:ring focus:ring-violet-500 focus:ring-offset-4 focus:ring-offset-gray-800",
+        className,
+      )}
       disabled={loading}
       {...props}
     >

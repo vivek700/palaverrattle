@@ -21,7 +21,7 @@ const Login = () => {
 
   return (
     <section className=" flex h-dvh items-center justify-center">
-      <section className=" flex w-9/12 max-w-5xl flex-col  items-center justify-center rounded bg-gray-700 py-10 text-slate-200 backdrop-blur-sm">
+      <section className=" flex w-9/12 max-w-5xl flex-col  items-center justify-center rounded bg-gray-800 py-10 text-slate-200 backdrop-blur-sm">
         <p className="pb-20 text-3xl">Palaverrattle</p>
         <h1 className="pb-6 text-2xl">Sign in to your account </h1>
         <Button

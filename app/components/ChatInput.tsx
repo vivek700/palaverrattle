@@ -19,6 +19,7 @@ const ChatInput = ({
   const [loading, setLoading] = useState<boolean>(false);
 
   const sendMessage = async () => {
+    textareaRef?.current?.focus();
     if (!input) return;
     setLoading(true);
     try {
@@ -27,7 +28,6 @@ const ChatInput = ({
         body: JSON.stringify({ text: input, chatId }),
       });
       setInput("");
-      textareaRef?.current?.focus();
     } catch (error) {
       console.log("chat Input error");
     } finally {

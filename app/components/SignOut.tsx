@@ -28,10 +28,10 @@ const SignOut: FC<SignOutProps> = ({ ...props }) => {
       }}
     >
       {isSignOut ? (
-        <FontAwesomeIcon icon={faSpinner} className="w-4  h-4 animate-spin" />
+        <FontAwesomeIcon icon={faSpinner} className="h-4  w-4 animate-spin" />
       ) : (
         <abbr title="sign out">
-          <FontAwesomeIcon icon={faArrowRightFromBracket} className="w-4 h-4" />
+          <FontAwesomeIcon icon={faArrowRightFromBracket} className="h-4 w-4" />
         </abbr>
       )}
     </Button>

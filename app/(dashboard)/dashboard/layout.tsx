@@ -71,10 +71,13 @@ const Layout: FC<LayouProps> = async ({ children }) => {
       >
         <Link
           href={"/dashboard"}
-          className="flex h-16 shrink-0 items-center text-3xl font-semibold"
+          className="group flex h-16 shrink-0 items-center text-3xl font-semibold"
         >
           <abbr title="Dashboard" className="flex items-center no-underline">
-            <FontAwesomeIcon icon={Icons.faEnvelope} className="mr-2 h-8 w-8" />
+            <FontAwesomeIcon
+              icon={Icons.faEnvelope}
+              className="mr-2 h-8 w-8 group-hover:animate-bounce"
+            />
             <span>Palaverrattle</span>
           </abbr>
         </Link>
@@ -122,7 +125,7 @@ const Layout: FC<LayouProps> = async ({ children }) => {
                   </span>
                 </div>
               </section>
-              <SignOut className="aspect-square h-full" />
+              <SignOut className="h-11" />
             </li>
           </ul>
         </nav>

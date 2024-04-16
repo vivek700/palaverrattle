@@ -18,12 +18,14 @@ const SidebarChat = ({
   const router = useRouter();
   const pathname = usePathname();
 
+  const [activeChats, setActiveChats] = useState<User[]>(friends);
+
   useEffect(() => {
     pusherClient.subscribe(toPusherKey(`user:${sessionId}:chats`));
     pusherClient.subscribe(toPusherKey(`user:${sessionId}:friends`));
 
-    const newFriendHandler = () => {
-      router.refresh();
+    const newFriendHandler = (newFriend: User) => {
+      setActiveChats((prev) => [...prev, newFriend]);
     };
 
     const chatHandler = (message: any) => {
@@ -56,7 +58,7 @@ const SidebarChat = ({
     }
   }, [pathname]);
 
-  const SidebarChatElement = friends.sort().map((friend) => {
+  const SidebarChatElement = activeChats.sort().map((friend) => {
     const unseenMsgCount = unseenMsg.filter((msg) => {
       return msg.senderId === friend.id;
     }).length;

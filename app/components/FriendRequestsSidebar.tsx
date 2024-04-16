@@ -19,17 +19,29 @@ const FriendRequestsSidebar = ({
   useEffect(() => {
     pusherClient.subscribe(toPusherKey(`user:${sessionId}:friend_requests`));
 
+    pusherClient.subscribe(toPusherKey(`user:${sessionId}:friends`));
+
     const friendRequestHandler = () => {
       setRequestCount((prev) => prev + 1);
     };
 
+    const friendHandler = () => {
+      setRequestCount((prev) => prev - 1);
+    };
+
     pusherClient.bind("friend_requests", friendRequestHandler);
+    pusherClient.bind("new_friend", friendHandler);
+    pusherClient.bind("reject_friend", friendHandler);
 
     return () => {
       pusherClient.unsubscribe(
         toPusherKey(`user:${sessionId}:friend_requests`),
       );
+
+      pusherClient.unsubscribe(toPusherKey(`user:${sessionId}:friends`));
       pusherClient.unbind("friend_requests", friendRequestHandler);
+      pusherClient.unbind("new_friend", friendHandler);
+      pusherClient.unbind("reject_friend", friendHandler);
     };
   }, [sessionId]);
 
