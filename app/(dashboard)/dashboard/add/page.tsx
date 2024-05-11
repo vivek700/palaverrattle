@@ -3,8 +3,8 @@ import React from "react";
 
 const page = () => {
   return (
-    <main className="py-4 px-8 text-slate-200">
-      <h1 className="text-5xl py-6 font-bold">Add a friend</h1>
+    <main className="py-4 text-slate-200 md:px-8">
+      <h1 className="py-6 text-5xl font-bold">Add a friend</h1>
       <AddFriendButton />
     </main>
   );

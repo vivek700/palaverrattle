@@ -22,10 +22,12 @@ const Login = () => {
   return (
     <section className=" flex h-dvh items-center justify-center">
       <section className=" flex w-9/12 max-w-5xl flex-col  items-center justify-center rounded bg-gray-800 py-10 text-slate-200 backdrop-blur-sm">
-        <p className="pb-20 text-3xl">Palaverrattle</p>
-        <h1 className="pb-6 text-2xl">Sign in to your account </h1>
+        <p className="pb-20 text-2xl md:text-3xl">Palaverrattle</p>
+        <h1 className="pb-6 text-center md:text-2xl">
+          Sign in to your account{" "}
+        </h1>
         <Button
-          className="w-6/12"
+          className="w-8/12 text-xs md:text-base"
           type="button"
           loading={loading}
           onClick={logIn}

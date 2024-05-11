@@ -10,6 +10,7 @@ import SidebarChat from "@/app/components/SidebarChat";
 import FriendRequestsSidebar from "@/app/components/FriendRequestsSidebar";
 import SignOut from "@/app/components/SignOut";
 import { auth } from "@/app/lib/auth";
+import MobileNav from "@/app/components/MobileNav";
 
 interface LayouProps {
   children: ReactNode;
@@ -64,10 +65,10 @@ const Layout: FC<LayouProps> = async ({ children }) => {
   });
 
   return (
-    <section className=" flex h-dvh w-full">
+    <section className="flex w-full flex-col md:h-dvh md:flex-row">
       <section
-        className=" flex h-full w-full max-w-sm grow flex-col gap-y-5 overflow-y-auto border-r border-gray-500
-       bg-slate-800/50 p-6"
+        className="flex h-full w-full grow flex-row items-center justify-between gap-y-5 overflow-y-auto border-gray-500 bg-slate-800/50 p-6 md:max-w-sm md:flex-col md:items-start
+       md:justify-normal md:border-r"
       >
         <Link
           href={"/dashboard"}
@@ -82,10 +83,64 @@ const Layout: FC<LayouProps> = async ({ children }) => {
           </abbr>
         </Link>
         {friends.length > 0 && (
-          <p className="text-xs font-semibold text-slate-300">Your Chats</p>
+          <p className="hidden text-xs font-semibold text-slate-300 md:block">
+            Your Chats
+          </p>
         )}
 
-        <nav className="flex flex-1 flex-col">
+        <MobileNav>
+          {friends.length > 0 && (
+            <p className="mt-10 text-xs font-semibold text-slate-300 ">
+              Your Chats
+            </p>
+          )}
+          <nav className="flex flex-1 flex-col ">
+            <ul role="list" className="flex flex-1 flex-col gap-y-7">
+              <li>
+                <SidebarChat sessionId={session.user.id} friends={friends} />
+              </li>
+              <li>
+                <section className="text-xs font-semibold text-slate-300">
+                  Overview
+                </section>
+                <ul role="list" className=" mt-2 space-y-1">
+                  {sideBarElement}
+                  <li>
+                    <FriendRequestsSidebar
+                      initialRequestCount={reqCount}
+                      sessionId={session?.user.id}
+                    />
+                  </li>
+                </ul>
+              </li>
+
+              <li className="-ml-6 mt-auto flex items-center">
+                <section className="flex flex-1 items-center gap-x-4 px-6 py-3 text-sm font-semibold text-slate-200">
+                  <section className="relative h-10 w-10 rounded-full bg-slate-800">
+                    <Image
+                      fill
+                      referrerPolicy="no-referrer"
+                      className="rounded-full"
+                      src={session.user.image || ""}
+                      alt="Your profile picture"
+                      unoptimized
+                    />
+                  </section>
+                  <span className="sr-only">Your Profile</span>
+                  <div className="flex flex-col">
+                    <span aria-hidden="true">{session?.user.name}</span>
+                    <span className="text-xs text-slate-600" aria-hidden="true">
+                      {session?.user.email}
+                    </span>
+                  </div>
+                </section>
+                <SignOut className="h-11" />
+              </li>
+            </ul>
+          </nav>
+        </MobileNav>
+
+        <nav className="hidden flex-1 flex-col md:flex">
           <ul role="list" className="flex flex-1 flex-col gap-y-7">
             <li>
               <SidebarChat sessionId={session.user.id} friends={friends} />
@@ -130,7 +185,10 @@ const Layout: FC<LayouProps> = async ({ children }) => {
           </ul>
         </nav>
       </section>
-      <aside className="container max-h-screen w-full py-4">{children}</aside>
+
+      <aside className="container max-h-screen w-full md:py-4">
+        {children}
+      </aside>
     </section>
   );
 };

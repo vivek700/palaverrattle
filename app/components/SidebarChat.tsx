@@ -82,7 +82,10 @@ const SidebarChat = ({
 
   return (
     <>
-      <ul role="list" className="-mx-2 max-h-[25rem] space-y-1 overflow-y-auto">
+      <ul
+        role="list"
+        className="max-h-[25rem] space-y-1 overflow-y-auto md:-mx-2"
+      >
         {SidebarChatElement}
       </ul>
     </>
