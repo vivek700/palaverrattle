@@ -65,14 +65,14 @@ const Layout: FC<LayouProps> = async ({ children }) => {
   });
 
   return (
-    <section className="flex w-full flex-col md:h-dvh md:flex-row">
+    <section className="flex w-full flex-col md:h-dvh md:flex-row ">
       <section
-        className="flex h-full w-full grow flex-row items-center justify-between gap-y-5 overflow-y-auto border-gray-500 bg-slate-800/50 p-6 md:max-w-sm md:flex-col md:items-start
+        className="flex h-full w-full grow flex-row items-center justify-between gap-y-5 overflow-y-auto border-gray-500 bg-slate-800/50 p-4 md:p-6 md:max-w-sm md:flex-col md:items-start
        md:justify-normal md:border-r"
       >
         <Link
           href={"/dashboard"}
-          className="group flex h-16 shrink-0 items-center text-3xl font-semibold"
+          className="group flex md:h-16 shrink-0 items-center text-2xl md:text-3xl font-semibold"
         >
           <abbr title="Dashboard" className="flex items-center no-underline">
             <FontAwesomeIcon
@@ -186,7 +186,7 @@ const Layout: FC<LayouProps> = async ({ children }) => {
         </nav>
       </section>
 
-      <aside className="container max-h-screen w-full md:py-4">
+      <aside className="container max-h-screen  w-full md:py-4">
         {children}
       </aside>
     </section>

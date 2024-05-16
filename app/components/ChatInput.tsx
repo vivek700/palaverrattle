@@ -36,7 +36,7 @@ const ChatInput = ({
   };
 
   return (
-    <div className="mb-2 border-t border-slate-600 px-4 py-6 sm:mb-0">
+    <div className=" border-t border-slate-600 px-4 py-4">
       <div className="relative flex-1 overflow-hidden rounded-lg shadow-sm ring-1 ring-slate-700 focus-within:ring-2 focus-within:ring-violet-600">
         <TextareaAutosize
           ref={textareaRef}
@@ -59,11 +59,11 @@ const ChatInput = ({
         />
         <div
           onClick={() => textareaRef.current?.focus()}
-          className="py-2"
+          className="py-1"
           aria-hidden="true"
         >
           <div className="py-px">
-            <div className="h-9" />
+            <div className="h-4" />
           </div>
         </div>
         <section className="absolute bottom-0 right-0 flex justify-between py-2 pl-3 pr-2">
