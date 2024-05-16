@@ -1,28 +1,28 @@
 import { auth } from "@/app/lib/auth";
 import { db } from "@/app/lib/db";
-import { pusherServer } from "@/app/lib/pusher";
 import { fetchRedis } from "@/app/lib/redis";
+import triggerPusherEvent from "@/app/lib/triggerPusherEvent";
 import { toPusherKey } from "@/app/lib/utils/toPusherKey";
 import { Message, messageValidator } from "@/app/lib/validations/message";
 import { nanoid } from "nanoid";
 
-const MAX_RETRIES = 3;
-const RETRY_DELAY = 1000; // 1 second
+// const MAX_RETRIES = 3;
+// const RETRY_DELAY = 1000; // 1 second
 
-async function triggerPusherEvent(channel: string, event: string, data: any, retries = MAX_RETRIES) {
-  for (let attempt = 1; attempt <= retries; attempt++) {
-    try {
-      await pusherServer.trigger(channel, event, data);
-      return;
-    } catch (error) {
-      if (attempt === retries) {
-        throw error;
-      }
-      console.error(`Attempt ${attempt} failed:`, error);
-      await new Promise(resolve => setTimeout(resolve, RETRY_DELAY));
-    }
-  }
-}
+// async function triggerPusherEvent(channel: string, event: string, data: any, retries = MAX_RETRIES) {
+//   for (let attempt = 1; attempt <= retries; attempt++) {
+//     try {
+//       await pusherServer.trigger(channel, event, data);
+//       return;
+//     } catch (error) {
+//       if (attempt === retries) {
+//         throw error;
+//       }
+//       console.error(`Attempt ${attempt} failed:`, error);
+//       await new Promise(resolve => setTimeout(resolve, RETRY_DELAY));
+//     }
+//   }
+// }
 
 export async function POST(req: Request) {
   try {

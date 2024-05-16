@@ -1,7 +1,7 @@
 import { auth } from "@/app/lib/auth";
 import { db } from "@/app/lib/db";
-import { pusherServer } from "@/app/lib/pusher";
 import { fetchRedis } from "@/app/lib/redis";
+import triggerPusherEvent from "@/app/lib/triggerPusherEvent";
 import { toPusherKey } from "@/app/lib/utils/toPusherKey";
 import { z } from "zod";
 
@@ -25,16 +25,16 @@ export async function POST(req: Request) {
     const friend = JSON.parse(friendStringObj) as User;
 
     await Promise.all([
-      pusherServer.trigger(
-        toPusherKey(`user:${idToReject}:friends`),
+
+      await triggerPusherEvent(toPusherKey(`user:${idToReject}:friends`),
         "reject_friend",
-        user,
-      ),
-      pusherServer.trigger(
-        toPusherKey(`user:${session.user.id}:friends`),
+        user),
+      await triggerPusherEvent(toPusherKey(`user:${session.user.id}:friends`),
         "reject_friend",
-        friend,
-      ),
+        friend),
+
+
+
       await db.srem(`user:${session.user.id}:friend_requests`, idToReject),
     ]);
 
