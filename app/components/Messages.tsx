@@ -102,7 +102,7 @@ const Messages = ({
   return (
     <section
       id="message"
-      className="scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch flex h-full flex-col-reverse gap-3 overflow-y-auto px-3"
+      className="scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch flex h-full flex-col-reverse gap-3 overflow-y-auto px-3 "
     >
       <div className="mb-2" ref={scrollRef} />
       {messageElement}
