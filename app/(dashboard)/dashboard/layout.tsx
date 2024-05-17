@@ -65,7 +65,7 @@ const Layout: FC<LayouProps> = async ({ children }) => {
   });
 
   return (
-    <section className="flex w-full flex-col h-dvh md:flex-row ">
+    <section className="flex w-full flex-col md:h-dvh md:flex-row ">
       <section
         className="flex h-full w-full grow flex-row items-center justify-between gap-y-5 md:overflow-y-auto border-gray-500 bg-slate-800/50 p-4 md:p-6 md:max-w-sm md:flex-col md:items-start
        md:justify-normal md:border-r"
