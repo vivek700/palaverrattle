@@ -2,8 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
-
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-rgb: 214, 219, 220;
@@ -45,4 +43,8 @@ body {
   .container {
     @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8;
   }
+}
+
+.chat-area-height {
+  height: calc(100vh - 5rem);
 }
