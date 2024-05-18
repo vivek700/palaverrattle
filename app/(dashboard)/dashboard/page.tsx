@@ -6,7 +6,11 @@ const Dashboard = async () => {
 
   if (!session) notFound();
 
-  return <main className="text-center">Dashboard</main>;
+  return <main className="text-center">Dashboard
+
+
+  </main>;
+
 };
 
 export default Dashboard;

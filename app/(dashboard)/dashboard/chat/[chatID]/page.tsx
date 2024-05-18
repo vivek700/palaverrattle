@@ -54,7 +54,7 @@ const page = async ({ params }: props) => {
   const initialMessages = await getChat(chatID);
 
   return (
-    <section className=" flex chat-area-height md:h-full flex-1 flex-col justify-between ">
+    <section className=" flex h-full flex-1 flex-col justify-between ">
       <section className="flex justify-between border-b-2 border-slate-600 py-3 sm:items-center">
         <section className="relative flex items-center space-x-4">
           <section className="relative">

@@ -50,7 +50,8 @@ const Messages = ({
       return format(dt, "KK:mm bbb");
     };
     return (
-      <section key={`${msg.id}-${msg.timestamp}`} className="chat-message">
+      <section key={`${msg.id}-${msg.timestamp}`}
+        ref={index === 0 ? scrollRef : null} className="chat-message ">
         <section
           className={cn("flex items-end", {
             "justify-end": isCurrentUser,
@@ -96,15 +97,38 @@ const Messages = ({
       </section>
     );
   });
+  useEffect(() => {
+    scrollRef.current?.scrollIntoView({ behavior: "smooth" });
 
-  scrollRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [msgs])
+
+
+  useEffect(() => {
+    const handleResize = () => {
+      const chatContainer = document.querySelector('.chat-container') as HTMLElement;
+      const chatInput = document.querySelector('.chat-input') as HTMLElement;
+
+
+      // Adjust the chat container height
+      if (chatContainer && chatInput) {
+        const windowHeight = window.innerHeight;
+        const chatInputHeight = chatInput.offsetHeight + 155;
+        chatContainer.style.height = `${windowHeight - chatInputHeight}px`;
+      }
+    };
+    if (window) {
+      window.addEventListener('resize', handleResize);
+    }
+    handleResize()
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
 
   return (
     <section
       id="message"
-      className="scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch flex h-full flex-col-reverse gap-3 overflow-y-auto px-3 "
+      className="scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch flex  flex-col-reverse gap-3 chat-container  md:h-full overflow-y-auto px-3"
     >
-      <div className="mb-2" ref={scrollRef} />
       {messageElement}
     </section>
   );

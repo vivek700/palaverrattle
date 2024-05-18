@@ -186,7 +186,7 @@ const Layout: FC<LayouProps> = async ({ children }) => {
         </nav>
       </section>
 
-      <aside className="container max-h-dvh  w-full md:py-4">
+      <aside className="container max-h-dvh w-full md:py-4">
         {children}
       </aside>
     </section>

@@ -36,7 +36,7 @@ const ChatInput = ({
   };
 
   return (
-    <div className="sticky inset-0 border-t border-slate-600 px-4 py-4">
+    <div className="absolute bg-slate-900/40 z-10 chat-input inset-x-0 bottom-0 border-t border-slate-600 px-4 py-4">
       <div className="relative flex-1 overflow-hidden rounded-lg shadow-sm ring-1 ring-slate-700 focus-within:ring-2 focus-within:ring-violet-600">
         <TextareaAutosize
           ref={textareaRef}
