@@ -3,9 +3,13 @@ import { z } from "zod";
 export const messageValidator = z.object({
   id: z.string(),
   senderId: z.string(),
-  text: z.string(),
+  text: z.string().optional(),
   timestamp: z.number(),
+  image: z.string().url().optional()
 });
+
+
+
 
 export const mArrayValidator = z.array(messageValidator);
 

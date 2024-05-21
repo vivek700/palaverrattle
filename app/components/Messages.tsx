@@ -50,8 +50,11 @@ const Messages = ({
       return format(dt, "KK:mm bbb");
     };
     return (
-      <section key={`${msg.id}-${msg.timestamp}`}
-        ref={index === 0 ? scrollRef : null} className="chat-message ">
+      <section
+        key={`${msg.id}-${msg.timestamp}`}
+        ref={index === 0 ? scrollRef : null}
+        className="chat-message "
+      >
         <section
           className={cn("flex items-end", {
             "justify-end": isCurrentUser,
@@ -71,7 +74,7 @@ const Messages = ({
                 "rounded-bl-none": !nextMsgFromSameUser && !isCurrentUser,
               })}
             >
-              {msg.text}{" "}
+              {msg?.text}{" "}
               <span className="ml-2 text-xs text-gray-400">
                 {formatTime(msg.timestamp)}
               </span>
@@ -99,15 +102,14 @@ const Messages = ({
   });
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
-
-  }, [msgs])
-
+  }, [msgs]);
 
   useEffect(() => {
     const handleResize = () => {
-      const chatContainer = document.querySelector('.chat-container') as HTMLElement;
-      const chatInput = document.querySelector('.chat-input') as HTMLElement;
-
+      const chatContainer = document.querySelector(
+        ".chat-container",
+      ) as HTMLElement;
+      const chatInput = document.querySelector(".chat-input") as HTMLElement;
 
       // Adjust the chat container height
       if (chatContainer && chatInput) {
@@ -117,17 +119,16 @@ const Messages = ({
       }
     };
     if (window) {
-      window.addEventListener('resize', handleResize);
+      window.addEventListener("resize", handleResize);
     }
-    handleResize()
-    return () => window.removeEventListener('resize', handleResize);
+    handleResize();
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
-
 
   return (
     <section
       id="message"
-      className="scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch flex  flex-col-reverse gap-3 chat-container  md:h-full overflow-y-auto px-3"
+      className="scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch chat-container flex flex-col-reverse gap-3 overflow-y-auto px-3 pb-2 md:h-full"
     >
       {messageElement}
     </section>

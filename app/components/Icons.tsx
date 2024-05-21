@@ -1,10 +1,10 @@
 import {
   faCheck,
-  faCircleCheck,
-  faCircleXmark,
   faEnvelope,
   faUserPlus,
   faXmark,
+  faPaperclip,
+  faPaperPlane,
 } from "@fortawesome/free-solid-svg-icons";
 
 export const Icons = {
@@ -12,6 +12,8 @@ export const Icons = {
   faUserPlus,
   faCheck,
   faXmark,
+  faPaperclip,
+  faPaperPlane,
 };
 
 export type Icon = keyof typeof Icons;
