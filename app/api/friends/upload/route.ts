@@ -56,7 +56,7 @@ export async function POST(req: Request) {
     try {
         await cloudinary.uploader.upload(file, { resource_type: 'auto' },
             async (error: any, result: any) => {
-                let messageData: Message | undefined;
+                let messageData: Message;
                 if (type.startsWith("image")) {
 
                     messageData = {
@@ -74,35 +74,34 @@ export async function POST(req: Request) {
                         type: type,
                         timestamp,
                     };
+                } else {
+                    // Handle other types or throw an error if not supported
+                    throw new Error('Unsupported message type');
                 }
 
-                const validMessage = messageValidator.safeParse(messageData);
+
+                const validMessage = messageValidator.safeParse(messageData!);
 
                 let message: Message | undefined;
 
                 if (validMessage.success) {
                     message = validMessage.data
 
+                    await triggerPusherEvent(toPusherKey(`chat:${chatId}`), "incoming-message", message);
+                    await triggerPusherEvent(toPusherKey(`user:${friendId}:chats`), "new_message", {
+                        ...message,
+                        senderImg: sender.image,
+                        senderName: sender.name,
+                    });
+
+                    await db.zadd(`chat:${chatId}:messages`, {
+                        score: timestamp,
+                        member: JSON.stringify(message),
+                    });
+
                 } else {
                     throw new Error('Parsing failed.')
                 }
-
-
-
-
-
-                await triggerPusherEvent(toPusherKey(`chat:${chatId}`), "incoming-message", message);
-                await triggerPusherEvent(toPusherKey(`user:${friendId}:chats`), "new_message", {
-                    ...message,
-                    senderImg: sender.image,
-                    senderName: sender.name,
-                });
-
-                await db.zadd(`chat:${chatId}:messages`, {
-                    score: timestamp,
-                    member: JSON.stringify(message),
-                });
-
 
 
             }
