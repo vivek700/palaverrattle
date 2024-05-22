@@ -82,10 +82,10 @@ export async function POST(req: Request) {
 
                 const validMessage = messageValidator.safeParse(messageData!);
 
-                let message: Message | undefined;
 
                 if (validMessage.success) {
-                    message = validMessage.data
+                    console.log('success')
+                    const message = validMessage.data as Message
 
                     await triggerPusherEvent(toPusherKey(`chat:${chatId}`), "incoming-message", message);
                     await triggerPusherEvent(toPusherKey(`user:${friendId}:chats`), "new_message", {

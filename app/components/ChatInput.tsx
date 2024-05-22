@@ -39,11 +39,6 @@ const ChatInput = ({
   };
 
   const [openUploadWindow, setOpenUploadWindow] = useState<boolean>(false);
-  if (openUploadWindow) {
-    if (window) {
-      // window.document.body.style.pointerEvents = 'block'
-    }
-  }
 
   //handling file sending
   const uploadRouteUrl = `${base}/api/friends/upload`;
@@ -87,7 +82,6 @@ const ChatInput = ({
       reader.onload = async (e) => {
         if (e.target && e.target.result) {
           const base64File = (e.target.result as string).split(",")[1];
-          console.log(file.type);
 
           try {
             const response = await fetch(uploadRouteUrl, {
@@ -119,6 +113,12 @@ const ChatInput = ({
     setFile(null);
     setPreviewUrl(null);
   };
+
+  if (openUploadWindow) {
+    if (window) {
+      // window.document.body.style.pointerEvents = "none";
+    }
+  }
 
   const fileUploadElement = (
     <div className="flex flex-col items-center justify-center ">
