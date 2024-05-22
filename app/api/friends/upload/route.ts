@@ -27,7 +27,10 @@ export async function POST(req: Request) {
 
     }
 
-    const { file, chatId } = validationRes.data
+    const { file, chatId, type } = validationRes.data
+
+
+
 
     const timestamp = Date.now();
 
@@ -53,12 +56,25 @@ export async function POST(req: Request) {
     try {
         await cloudinary.uploader.upload(file, { resource_type: 'auto' },
             async (error: any, result: any) => {
-                const messageData: Message = {
-                    id: nanoid(),
-                    senderId: session.user.id,
-                    image: result.secure_url,
-                    timestamp,
-                };
+                let messageData: Message | undefined;
+                if (type.startsWith("image")) {
+
+                    messageData = {
+                        id: nanoid(),
+                        senderId: session.user.id,
+                        image: result.secure_url,
+                        type: type,
+                        timestamp,
+                    };
+                } else if (type.startsWith("video")) {
+                    messageData = {
+                        id: nanoid(),
+                        senderId: session.user.id,
+                        video: result.secure_url,
+                        type: type,
+                        timestamp,
+                    };
+                }
 
                 const validMessage = messageValidator.safeParse(messageData);
 
@@ -88,7 +104,6 @@ export async function POST(req: Request) {
                 });
 
 
-                console.log(message)
 
             }
         )

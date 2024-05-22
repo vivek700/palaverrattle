@@ -87,6 +87,7 @@ const ChatInput = ({
       reader.onload = async (e) => {
         if (e.target && e.target.result) {
           const base64File = (e.target.result as string).split(",")[1];
+          console.log(file.type);
 
           try {
             const response = await fetch(uploadRouteUrl, {
@@ -97,6 +98,7 @@ const ChatInput = ({
               body: JSON.stringify({
                 file: `data:${file.type};base64,${base64File}`,
                 chatId,
+                type: file.type,
               }),
             });
           } catch (error) {
@@ -104,6 +106,7 @@ const ChatInput = ({
           } finally {
             setLoading(false);
             setFile(null);
+            setOpenUploadWindow(false);
           }
         }
       };
@@ -123,27 +126,29 @@ const ChatInput = ({
         type="file"
         accept="image/*, video/*"
         onChange={handleFileChange}
-        className="mb-4 mt-2"
+        className="mb-4 mt-2 w-full"
       />
       {errorMessage && <div className="text-red-600">{errorMessage}</div>}
       {previewUrl && (
-        <div>
+        <div className="flex items-center justify-center">
           {file?.type.startsWith("image") && (
-            // <img
-            //   src={previewUrl}
-            //   alt="Preview"
-            //   className="max-h-48 max-w-full"
-            // />
             <Image
               src={previewUrl}
               alt="Preview"
-              // className="max-h-48 max-w-full"
+              className="max-h-36 max-w-fit  rounded md:max-h-60"
               width={220}
               height={220}
+              property="true"
+              placeholder="empty"
             />
           )}
           {file?.type.startsWith("video") && (
-            <video controls className="max-h-48 max-w-full">
+            <video
+              controls
+              controlsList=" nodownload noremoteplayback noplaybackrate nofoobar"
+              className="max-h-36 max-w-full md:max-h-60"
+              disablePictureInPicture
+            >
               <source src={previewUrl} type={file.type} />
               Your browser does not support the video tag.
             </video>
@@ -180,16 +185,16 @@ const ChatInput = ({
           />
           <div
             onClick={() => textareaRef.current?.focus()}
-            className={`py-1 `}
+            className={`${openUploadWindow ? "pointer-events-none" : null} py-2`}
             aria-hidden="true"
           >
-            <div className="py-px">
-              <div className="h-2 md:h-6" />
+            <div className=" py-px">
+              <div className="h-7" />
             </div>
           </div>
           <section className="absolute bottom-0 right-0 flex justify-between py-2 pl-3 pr-2">
             <div className=" flex flex-shrink-0 gap-x-2">
-              <Button name="button" onClick={handleUpload}>
+              <Button name="button" onClick={handleUpload} disabled={loading}>
                 {openUploadWindow ? (
                   <FontAwesomeIcon icon={Icons.faXmark} className="h-4 w-4" />
                 ) : (

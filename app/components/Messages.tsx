@@ -74,7 +74,30 @@ const Messages = ({
                 "rounded-bl-none": !nextMsgFromSameUser && !isCurrentUser,
               })}
             >
-              {msg?.text}{" "}
+              {msg?.text ? (
+                msg?.text
+              ) : msg?.image ? (
+                <Image
+                  src={msg?.image || ""}
+                  width={220}
+                  height={220}
+                  className="w-full rounded"
+                  alt="image"
+                  property="false"
+                  placeholder="empty"
+                />
+              ) : (
+                <video
+                  controls
+                  controlsList=" nodownload noremoteplayback noplaybackrate nofoobar"
+                  className="max-h-36 max-w-full md:max-h-60"
+                  disablePictureInPicture
+                >
+                  <source src={msg.video || ""} type={msg?.text} />
+                  Your browser does not support the video tag.
+                </video>
+              )}
+              {/* {msg?.text}{" "} */}
               <span className="ml-2 text-xs text-gray-400">
                 {formatTime(msg.timestamp)}
               </span>

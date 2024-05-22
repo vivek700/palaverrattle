@@ -5,7 +5,9 @@ export const messageValidator = z.object({
   senderId: z.string(),
   text: z.string().optional(),
   timestamp: z.number(),
-  image: z.string().url().optional()
+  image: z.string().url().optional(),
+  video: z.string().url().optional(),
+  type: z.string().optional()
 });
 
 
