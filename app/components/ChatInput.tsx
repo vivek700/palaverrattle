@@ -189,12 +189,17 @@ const ChatInput = ({
             aria-hidden="true"
           >
             <div className=" py-px">
-              <div className="h-7" />
+              <div className="h-6" />
             </div>
           </div>
           <section className="absolute bottom-0 right-0 flex justify-between py-2 pl-3 pr-2">
             <div className=" flex flex-shrink-0 gap-x-2">
-              <Button name="button" onClick={handleUpload} disabled={loading}>
+              <Button
+                className="h-8 w-12"
+                name="button"
+                onClick={handleUpload}
+                disabled={loading}
+              >
                 {openUploadWindow ? (
                   <FontAwesomeIcon icon={Icons.faXmark} className="h-4 w-4" />
                 ) : (
@@ -205,15 +210,18 @@ const ChatInput = ({
                 )}
               </Button>
               <Button
+                className="h-8 w-12"
                 name="button"
                 onClick={openUploadWindow ? handleSendFile : sendMessage}
                 loading={loading}
                 type="submit"
               >
-                <FontAwesomeIcon
-                  icon={Icons.faPaperPlane}
-                  className="h-4 w-4"
-                />
+                {loading ? null : (
+                  <FontAwesomeIcon
+                    icon={Icons.faPaperPlane}
+                    className="h-4 w-4"
+                  />
+                )}
               </Button>
             </div>
           </section>

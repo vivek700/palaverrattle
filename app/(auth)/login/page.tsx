@@ -27,14 +27,14 @@ const Login = () => {
           Sign in to your account{" "}
         </h1>
         <Button
-          className="w-8/12 text-xs md:text-base"
+          className="w-8/12 gap-x-1 text-xs md:text-base"
           type="button"
           loading={loading}
           onClick={logIn}
         >
           {loading ? null : (
             <svg
-              className="mr-2 h-4 w-4"
+              className="h-4 w-4"
               aria-hidden="true"
               focusable="false"
               data-prefix="fab"

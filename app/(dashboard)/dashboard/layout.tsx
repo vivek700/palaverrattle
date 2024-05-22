@@ -67,12 +67,12 @@ const Layout: FC<LayouProps> = async ({ children }) => {
   return (
     <section className="flex w-full flex-col md:h-dvh md:flex-row ">
       <section
-        className="flex h-full w-full grow flex-row items-center justify-between gap-y-5 md:overflow-y-auto border-gray-500 bg-slate-800/50 p-4 md:p-6 md:max-w-sm md:flex-col md:items-start
-       md:justify-normal md:border-r"
+        className="flex h-full w-full grow flex-row items-center justify-between gap-y-5 border-gray-500 bg-slate-800/50 p-4 md:max-w-sm md:flex-col md:items-start md:justify-normal md:overflow-y-auto
+       md:border-r md:p-6"
       >
         <Link
           href={"/dashboard"}
-          className="group flex md:h-16 shrink-0 items-center text-2xl md:text-3xl font-semibold"
+          className="group flex shrink-0 items-center text-2xl font-semibold md:h-16 md:text-3xl"
         >
           <abbr title="Dashboard" className="flex items-center no-underline">
             <FontAwesomeIcon
@@ -90,11 +90,11 @@ const Layout: FC<LayouProps> = async ({ children }) => {
 
         <MobileNav>
           {friends.length > 0 && (
-            <p className="mt-10 text-xs font-semibold text-slate-300 ">
+            <p className="mt-10 py-2 text-xs font-semibold text-slate-300">
               Your Chats
             </p>
           )}
-          <nav className="flex flex-1 flex-col ">
+          <nav className="flex flex-1 flex-col">
             <ul role="list" className="flex flex-1 flex-col gap-y-7">
               <li>
                 <SidebarChat sessionId={session.user.id} friends={friends} />
@@ -114,8 +114,8 @@ const Layout: FC<LayouProps> = async ({ children }) => {
                 </ul>
               </li>
 
-              <li className="-ml-6 mt-auto flex items-center">
-                <section className="flex flex-1 items-center gap-x-4 px-6 py-3 text-sm font-semibold text-slate-200">
+              <li className="-ml-6 mt-auto flex items-center  ">
+                <section className="flex w-8/12 flex-1 items-center gap-x-2 px-6 py-3 text-sm font-semibold text-slate-200">
                   <section className="relative h-10 w-10 rounded-full bg-slate-800">
                     <Image
                       fill
@@ -127,11 +127,19 @@ const Layout: FC<LayouProps> = async ({ children }) => {
                     />
                   </section>
                   <span className="sr-only">Your Profile</span>
-                  <div className="flex flex-col">
+                  <div className="flex  flex-col truncate">
                     <span aria-hidden="true">{session?.user.name}</span>
-                    <span className="text-xs text-slate-600" aria-hidden="true">
-                      {session?.user.email}
-                    </span>
+                    <abbr
+                      title={session?.user.email || ""}
+                      className="no-underline"
+                    >
+                      <span
+                        className=" truncate text-xs text-slate-600"
+                        aria-hidden="true"
+                      >
+                        {session?.user.email}
+                      </span>
+                    </abbr>
                   </div>
                 </section>
                 <SignOut className="h-11" />
@@ -186,9 +194,7 @@ const Layout: FC<LayouProps> = async ({ children }) => {
         </nav>
       </section>
 
-      <aside className="container max-h-dvh w-full md:py-4">
-        {children}
-      </aside>
+      <aside className="container max-h-dvh w-full md:py-4">{children}</aside>
     </section>
   );
 };

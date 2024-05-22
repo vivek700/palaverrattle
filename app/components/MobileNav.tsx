@@ -28,7 +28,7 @@ const MobileNav = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <>
-      <nav className=" flex md:hidden ">
+      <nav className="flex md:hidden ">
         {toggleNav ? (
           <span onClick={navHandler}>
             <FontAwesomeIcon icon={faX} className="h-8 w-8" />
@@ -39,7 +39,7 @@ const MobileNav = ({ children }: { children: React.ReactNode }) => {
           </span>
         )}
         {toggleNav && (
-          <section className=" absolute inset-y-0 left-0 z-10 bg-slate-900">
+          <section className="absolute inset-y-0 left-0 z-10 w-10/12 bg-slate-900">
             {children}
           </section>
         )}

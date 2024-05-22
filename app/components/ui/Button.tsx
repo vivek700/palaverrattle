@@ -23,7 +23,7 @@ const Button: React.FC<ButtonProps> = ({
       {...props}
     >
       {loading ? (
-        <FontAwesomeIcon icon={faSpinner} className="mr-2 animate-spin" />
+        <FontAwesomeIcon icon={faSpinner} className="animate-spin" />
       ) : null}
       {children}
     </button>

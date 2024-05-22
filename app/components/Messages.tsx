@@ -67,7 +67,7 @@ const Messages = ({
             })}
           >
             <span
-              className={cn("inline-block rounded-lg px-4 py-2", {
+              className={cn("inline-block rounded-lg  p-2", {
                 "bg-slate-800 text-slate-100": isCurrentUser,
                 "bg-violet-700 text-slate-100": !isCurrentUser,
                 "rounded-br-none": !nextMsgFromSameUser && isCurrentUser,
@@ -89,8 +89,8 @@ const Messages = ({
               ) : (
                 <video
                   controls
-                  controlsList=" nodownload noremoteplayback noplaybackrate nofoobar"
-                  className="max-h-36 max-w-full md:max-h-60"
+                  controlsList="nodownload noremoteplayback noplaybackrate "
+                  className="max-h-36 max-w-full rounded md:max-h-60"
                   disablePictureInPicture
                 >
                   <source src={msg.video || ""} type={msg?.text} />
@@ -151,7 +151,7 @@ const Messages = ({
   return (
     <section
       id="message"
-      className="scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch chat-container flex flex-col-reverse gap-3 overflow-y-auto px-3 pb-2 md:h-full"
+      className="scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch chat-container md:h-ful flex  flex-col-reverse gap-3 overflow-y-auto px-1 pb-2"
     >
       {messageElement}
     </section>
