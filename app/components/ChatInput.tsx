@@ -193,11 +193,11 @@ const ChatInput = ({
             </div>
           </div>
           <section className="absolute bottom-0 right-0 flex justify-between py-2 pl-3 pr-2">
-            <div className=" flex flex-shrink-0 gap-x-2">
+            <div className=" flex flex-shrink-0 items-end gap-x-2">
               <Button
-                className="h-8 w-12"
+                className="h-8 w-9"
                 name="button"
-                onClick={handleUpload}
+                onMouseDown={handleUpload}
                 disabled={loading}
               >
                 {openUploadWindow ? (
@@ -210,16 +210,16 @@ const ChatInput = ({
                 )}
               </Button>
               <Button
-                className="h-8 w-12"
+                className="h-10 w-14"
                 name="button"
-                onClick={openUploadWindow ? handleSendFile : sendMessage}
+                onMouseDown={openUploadWindow ? handleSendFile : sendMessage}
                 loading={loading}
                 type="submit"
               >
                 {loading ? null : (
                   <FontAwesomeIcon
                     icon={Icons.faPaperPlane}
-                    className="h-4 w-4"
+                    className="h-5 w-5"
                   />
                 )}
               </Button>
