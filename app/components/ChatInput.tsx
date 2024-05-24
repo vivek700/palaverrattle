@@ -212,7 +212,7 @@ const ChatInput = ({
               <Button
                 className="h-10 w-14"
                 name="button"
-                onMouseDown={openUploadWindow ? handleSendFile : sendMessage}
+                onClick={openUploadWindow ? handleSendFile : sendMessage}
                 loading={loading}
                 type="submit"
               >
