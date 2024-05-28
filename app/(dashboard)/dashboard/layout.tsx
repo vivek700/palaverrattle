@@ -11,6 +11,12 @@ import FriendRequestsSidebar from "@/app/components/FriendRequestsSidebar";
 import SignOut from "@/app/components/SignOut";
 import { auth } from "@/app/lib/auth";
 import MobileNav from "@/app/components/MobileNav";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Palaverrattle | Dashboard",
+  description: "A chat web app",
+};
 
 interface LayouProps {
   children: ReactNode;
