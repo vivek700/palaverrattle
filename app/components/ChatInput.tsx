@@ -69,8 +69,6 @@ const ChatInput = ({
       };
       if (selectedFile.type.startsWith("image")) {
         reader.readAsDataURL(selectedFile);
-      } else if (selectedFile.type.startsWith("video")) {
-        reader.readAsDataURL(selectedFile);
       }
     }
   };
@@ -114,17 +112,11 @@ const ChatInput = ({
     setPreviewUrl(null);
   };
 
-  if (openUploadWindow) {
-    if (window) {
-      // window.document.body.style.pointerEvents = "none";
-    }
-  }
-
   const fileUploadElement = (
     <div className="flex flex-col items-center justify-center ">
       <input
         type="file"
-        accept="image/*, video/*"
+        accept="image/*"
         onChange={handleFileChange}
         className="mb-4 mt-2 w-full"
       />

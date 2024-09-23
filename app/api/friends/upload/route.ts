@@ -57,14 +57,6 @@ export async function POST(req: Request) {
                 type: type,
                 timestamp,
             };
-        } else if (type.startsWith("video")) {
-            messageData = {
-                id: nanoid(),
-                senderId: session.user.id,
-                video: secure_url,
-                type: type,
-                timestamp,
-            };
         } else {
             throw new Error('Unsupported message type');
         }
