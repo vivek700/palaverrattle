@@ -174,8 +174,8 @@ const Layout: FC<LayouProps> = async ({ children }) => {
               </ul>
             </li>
 
-            <li className="-ml-6 mt-auto flex items-center">
-              <section className="flex flex-1 items-center gap-x-4 px-6 py-3 text-sm font-semibold text-slate-200">
+            <li className="mt-auto flex items-center">
+              <section className="flex flex-1 items-center gap-x-4 py-3 pr-3 text-sm font-semibold text-slate-200">
                 <section className="relative h-10 w-10 rounded-full bg-slate-800">
                   <Image
                     fill
