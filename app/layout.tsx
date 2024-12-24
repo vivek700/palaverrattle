@@ -6,7 +6,8 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Palaverrattle",
-  description: "A chat web app",
+  description:
+    "Palaverrattle is a real-time web chat app built with Next.js, Pusher, and Upstash Redis, featuring secure Google authentication.",
 };
 
 export default function RootLayout({
