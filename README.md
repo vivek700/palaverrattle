@@ -69,7 +69,7 @@ Open [http://localhost:3000](http://localhost:3000) in your browser to view the 
 
 ## Deployment
 
-Palaverrattle is deployed on Vercel. Visit the live app at [your-deployment-url](https://palaverrattle.vercel.app).
+Palaverrattle is deployed on Vercel. Visit the live app at [https://palaverrattle.vercel.app](https://palaverrattle.vercel.app).
 
 ---
 
