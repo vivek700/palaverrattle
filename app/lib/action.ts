@@ -9,12 +9,6 @@ import { pusherServer } from "./pusher";
 import { toPusherKey } from "./utils/toPusherKey";
 import triggerPusherEvent from "./triggerPusherEvent";
 
-
-
-
-
-
-
 export const SendRequest = async (prevState: any, formData: FormData) => {
   //   console.log(formData);
 
@@ -38,7 +32,7 @@ export const SendRequest = async (prevState: any, formData: FormData) => {
         Authorization: `Bearer ${process.env.UPSTASH_REDIS_REST_TOKEN}`,
       },
       cache: "no-store",
-    }
+    },
   );
   const data = (await RESTResponse.json()) as { result: string };
 
@@ -68,7 +62,7 @@ export const SendRequest = async (prevState: any, formData: FormData) => {
   const isAdded = (await fetchRedis(
     "sismember",
     `user:${idToAdd}:friend_requests`,
-    session?.user.id!
+    session?.user.id!,
   )) as 0 | 1;
 
   if (isAdded) {
@@ -79,7 +73,7 @@ export const SendRequest = async (prevState: any, formData: FormData) => {
   const isFriends = (await fetchRedis(
     "sismember",
     `user:${session?.user.id}:friends`,
-    idToAdd
+    idToAdd,
   )) as 0 | 1;
 
   if (isFriends) {
@@ -88,14 +82,14 @@ export const SendRequest = async (prevState: any, formData: FormData) => {
     };
   }
 
-  await triggerPusherEvent(toPusherKey(`user:${idToAdd}:friend_requests`),
+  await triggerPusherEvent(
+    toPusherKey(`user:${idToAdd}:friend_requests`),
     "friend_requests",
     {
       senderId: session.user.id,
       senderMail: session.user.email,
-    })
-
-
+    },
+  );
 
   try {
     db.sadd(`user:${idToAdd}:friend_requests`, session?.user.id);

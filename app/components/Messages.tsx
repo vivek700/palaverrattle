@@ -5,7 +5,7 @@ import { Message } from "../lib/validations/message";
 import { cn } from "../lib/utils/cn";
 import { format } from "date-fns";
 import Image from "next/image";
-import { pusherClient } from "../lib/pusher";
+import { pusherClient } from "../lib/pusher-client";
 import { toPusherKey } from "../lib/utils/toPusherKey";
 
 const Messages = ({
@@ -53,7 +53,7 @@ const Messages = ({
       <section
         key={`${msg.id}-${msg.timestamp}`}
         ref={index === 0 ? scrollRef : null}
-        className="chat-message "
+        className="chat-message"
       >
         <section
           className={cn("flex items-end", {
@@ -67,7 +67,7 @@ const Messages = ({
             })}
           >
             <span
-              className={cn("inline-block rounded-lg  p-2", {
+              className={cn("inline-block rounded-lg p-2", {
                 "bg-slate-800 text-slate-100": isCurrentUser,
                 "bg-violet-700 text-slate-100": !isCurrentUser,
                 "rounded-br-none": !nextMsgFromSameUser && isCurrentUser,
@@ -151,7 +151,7 @@ const Messages = ({
   return (
     <section
       id="message"
-      className="scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch chat-container md:h-ful flex  flex-col-reverse gap-3 overflow-y-auto px-1 pb-2"
+      className="scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch chat-container md:h-ful flex flex-col-reverse gap-3 overflow-y-auto px-1 pb-2"
     >
       {messageElement}
     </section>

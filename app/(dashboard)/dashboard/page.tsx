@@ -3,7 +3,6 @@ import { getFriendsByUserId } from "@/app/lib/get-friends";
 import { fetchRedis } from "@/app/lib/redis";
 import { notFound } from "next/navigation";
 import { pathConstructor } from "@/app/lib/utils/pathConstructor";
-import { faDivide } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -35,7 +34,7 @@ const Dashboard = async () => {
 
   return (
     <main className="text-center">
-      <h1 className="mb-8 mt-4 text-4xl font-bold">Recent chats</h1>
+      <h1 className="mt-4 mb-8 text-4xl font-bold">Recent chats</h1>
       {lastMessage.length === 0 ? (
         <p className="text-sm">Nothing to show here...</p>
       ) : (
@@ -55,7 +54,7 @@ const Dashboard = async () => {
               )}`}
               className="relative sm:flex"
             >
-              <div className="mb-4 flex-shrink-0 sm:mb-0 sm:mr-4">
+              <div className="mb-4 flex-shrink-0 sm:mr-4 sm:mb-0">
                 <div className="relative h-6 w-6">
                   <Image
                     referrerPolicy="no-referrer"

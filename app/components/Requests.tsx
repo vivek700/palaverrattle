@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 import { Icons } from "./Icons";
 import { useRouter } from "next/navigation";
-import { pusherClient } from "../lib/pusher";
+import { pusherClient } from "../lib/pusher-client";
 import { toPusherKey } from "../lib/utils/toPusherKey";
 
 const Requests = ({
@@ -63,7 +63,7 @@ const Requests = ({
   };
 
   const reqElement = requests?.map((req) => (
-    <section key={req.senderId} className="flex items-center gap-4 ">
+    <section key={req.senderId} className="flex items-center gap-4">
       <FontAwesomeIcon icon={Icons.faUserPlus} className="h-8 w-8" />
       <p className="text-lg font-medium">{req?.senderMail}</p>
       <button

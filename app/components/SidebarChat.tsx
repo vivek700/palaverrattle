@@ -3,9 +3,8 @@
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { pathConstructor } from "../lib/utils/pathConstructor";
-import { pusherClient } from "../lib/pusher";
+import { pusherClient } from "../lib/pusher-client";
 import { toPusherKey } from "../lib/utils/toPusherKey";
-import Link from "next/link";
 
 const SidebarChat = ({
   friends,
